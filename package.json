@@ -1,7 +1,8 @@
 {
   "name": "react-fiscal-year-calendar",
-  "version": "0.1.1",
+  "version": "0.1.6",
   "private": false,
+  "main": "./build/index.js",
   "dependencies": {
     "node-sass": "^5.0.0",
     "react": "^17.0.2",
@@ -24,6 +25,19 @@
     "react": "^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0",
     "react-dom": "^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0"
   },
+  "files": [
+    "build"
+  ],
+  "npmName": "react-fiscal-year-calendar",
+    "npmFileMap": [
+      {
+        "basePath": "/build/",
+        "files": [
+          "*.js"
+        ]
+      }
+    ],
+
   "scripts": {
     "start": "react-scripts start",
     "build": "webpack",
