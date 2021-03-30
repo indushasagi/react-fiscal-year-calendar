@@ -1,7 +1,7 @@
 {
   "name": "react-fiscal-year-calendar",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.1.1",
+  "private": false,
   "dependencies": {
     "node-sass": "^5.0.0",
     "react": "^17.0.2",
@@ -47,5 +47,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "keywords": [
+    "react",
+    "fiscal-year-calendar",
+    "react-component",
+    "fiscal-calendar"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/indushasagi/react-fiscal-year-calendar"
   }
 }
