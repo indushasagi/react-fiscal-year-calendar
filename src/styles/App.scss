@@ -1,3 +1,7 @@
+*{
+	font-family:'Courier New', Courier, monospace;
+}
+
 h2 {
     text-align: center;
 }
@@ -6,31 +10,32 @@ h2 {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    height: 650px;
+	height: 650px;
     .react-fiscal-year-calendar-month{
-        flex-direction: row;
         border: 1px solid black;
 		margin: 10px;
 		border-collapse: collapse;
+		thead{
+			background-color: rgba(0, 64, 255, 0.200);
+			.weekend{
+				color: #ff0000bd;
+			}
+		}
 		thead,
 		td {
 			border: 1px solid black;
 			text-align: center;
 			padding: 4px;
 			&.grey {
-				background-color: lightgrey;
-				color: black;
-				&:hover {
-					cursor: pointer;
-					background-color: rgba(0, 128, 0, 0.7);
-				}
+				background-color: #d3d3d37a;
+				color: #ff0000bd;
 			}
 		}
 		tbody {
 			td {
 				&:hover {
 					cursor: pointer;
-					background-color: rgba(0, 0, 255, 0.5);
+					background-color: #d3d3d3c7;
 				}
 			}
 		}
