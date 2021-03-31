@@ -1,6 +1,6 @@
 {
   "name": "react-fiscal-year-calendar",
-  "version": "0.1.6",
+  "version": "0.1.9",
   "private": false,
   "main": "./build/index.js",
   "dependencies": {
@@ -42,7 +42,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "pack":"webpack"
   },
   "eslintConfig": {
     "extends": [
