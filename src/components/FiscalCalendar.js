@@ -3,29 +3,43 @@ import "../styles/App.scss";
 import { Months } from "../utils/calendar-util";
 import WeekHeader from "./WeekHeader";
 
-function FiscalCalendar({ year, quarterMonth }) {
+function FiscalCalendar({ year, quarterMonth, quarterDays=[] }) {
   const [FiscalCalendarData, setFiscalCalendarData] = useState([]);
 
   useEffect(() => {
-    getCalendar();
+    if(quarterDays.length>0){
+      getCalendarByquarterDays();
+    }else{
+      getCalendar();
+    }
   }, []);
 
-  const getCalendar = () => {
-    let calendarArr = [];
+  const getMonthOrder = (startMonth=quarterMonth) => {
     let orderMonth = [];
     let tempMonths = [];
     let ind = 0;
+    let startDay = 1;
     Months.forEach((val, i) => {
-      if (quarterMonth === val || ind > 0) {
+      if (startMonth === val || ind > 0) {
+        if(quarterDays.length>0 && ind===0){
+          startDay = new Date(quarterDays[0].ST_DT).getDate();
+        }
         ind++;
-        return orderMonth.push({ month: val, i, year: year });
+        orderMonth.push({ month: val, i, year: year, startDay:startDay });
+        startDay = 1;
+        return orderMonth;
       } else {
-        return tempMonths.push({ month: val, i, year: year + 1 });
+        startDay = 1;
+        return tempMonths.push({ month: val, i, year: year + 1, startDay:startDay });
       }
     });
-    orderMonth = [...orderMonth, ...tempMonths];
-    orderMonth.map((val) => {
-      let startDate = new Date(val["year"], val["i"], 1);
+    return orderMonth = [...orderMonth, ...tempMonths];
+  }
+
+  const setCalendarData = (getMonthOrders) => {
+    let calendarArr = [];
+    getMonthOrders.map((val) => {
+      let startDate = new Date(val["year"], val["i"], val["startDay"]);
       let endDate = new Date(
         startDate.getFullYear(),
         startDate.getMonth() + 1,
@@ -69,6 +83,30 @@ function FiscalCalendar({ year, quarterMonth }) {
       });
     });
     setFiscalCalendarData(calendarArr);
+  }
+
+  const getCalendarByquarterDays = () => {
+    if(quarterDays.length === 4){
+      let sortData = quarterDays.sort((a,b) => a.Q_ID - b.Q_ID);
+      let flag = sortData.reduce((accumulator,currentValue) => {
+        if(new Date(currentValue['ED_DT']) > new Date(currentValue['ST_DT'])){
+          return accumulator && new Date(accumulator['ED_DT']) < new Date(currentValue['ST_DT']) ? currentValue : false;
+        }
+        return null;
+      });
+      if(Boolean(flag)){
+        let getMonth = new Date(quarterDays[0].ST_DT).toLocaleString('default', { month: 'long' });
+        const getMonthOrders = getMonthOrder(getMonth.toUpperCase());
+        setCalendarData(getMonthOrders);
+      }
+    }else{
+      alert('Please provide a valid ST_DT and ED_DT for 4 quarters');
+    }
+  };
+
+  const getCalendar = () => {
+    const getMonthOrders = getMonthOrder();
+    setCalendarData(getMonthOrders);
   };
 
   return (
