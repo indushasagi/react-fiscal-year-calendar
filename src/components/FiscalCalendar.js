@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import "../styles/App.scss";
 import { Months } from "../utils/calendar-util";
 import WeekHeader from "./WeekHeader";
+import PropTypes from 'prop-types';
 
 function FiscalCalendar({ year, quarterMonth, quarterDays=[] }) {
   const [FiscalCalendarData, setFiscalCalendarData] = useState([]);
+  const [calendarPeriod, setCalendarPeriod] = useState('');
 
   useEffect(() => {
     if(quarterDays.length>0){
@@ -12,7 +14,7 @@ function FiscalCalendar({ year, quarterMonth, quarterDays=[] }) {
     }else{
       getCalendar();
     }
-  }, []);
+  }, [quarterDays]);
 
   const getMonthOrder = (startMonth=quarterMonth) => {
     let orderMonth = [];
@@ -56,7 +58,7 @@ function FiscalCalendar({ year, quarterMonth, quarterDays=[] }) {
         );
         startDate = new Date(date.setDate(date.getDate() + 1));
       }
-
+ 
       let tempArr =
         getWeek.getDay() !== 0
           ? getWeek.getDay() - 1 === 0
@@ -83,24 +85,32 @@ function FiscalCalendar({ year, quarterMonth, quarterDays=[] }) {
       });
     });
     setFiscalCalendarData(calendarArr);
+    setCalendarPeriod(`
+        ${calendarArr[0].label} - ${calendarArr[0].year} to
+        ${calendarArr[11].label} - ${calendarArr[11].year}`
+    );
   }
 
   const getCalendarByquarterDays = () => {
     if(quarterDays.length === 4){
       let sortData = quarterDays.sort((a,b) => a.Q_ID - b.Q_ID);
-      let flag = sortData.reduce((accumulator,currentValue) => {
+      let flag = true;
+      sortData.reduce((accumulator,currentValue,currentIndex) => {
         if(new Date(currentValue['ED_DT']) > new Date(currentValue['ST_DT'])){
-          return accumulator && new Date(accumulator['ED_DT']) < new Date(currentValue['ST_DT']) ? currentValue : false;
+          return currentIndex > 0 ? (accumulator && new Date(accumulator['ED_DT']) < new Date(currentValue['ST_DT']) ? currentValue : flag = false): currentValue;
+        }else{
+          return flag = false;
         }
-        return null;
-      });
+      },[]);
       if(Boolean(flag)){
         let getMonth = new Date(quarterDays[0].ST_DT).toLocaleString('default', { month: 'long' });
         const getMonthOrders = getMonthOrder(getMonth.toUpperCase());
         setCalendarData(getMonthOrders);
+      }else{
+        throw new Error('Please provide a valid ST_DT and ED_DT for 4 quarters');  
       }
     }else{
-      alert('Please provide a valid ST_DT and ED_DT for 4 quarters');
+      throw new Error('Please provide ST_DT and ED_DT for 4 quarters');
     }
   };
 
@@ -112,12 +122,7 @@ function FiscalCalendar({ year, quarterMonth, quarterDays=[] }) {
   return (
     <>
       <h2>
-        {`${quarterMonth} - ${year} to 
-      ${
-        Months.indexOf(quarterMonth) === 0
-          ? `${Months[11]} - ${year}`
-          : `${Months[Months.indexOf(quarterMonth) - 1]} - ${year + 1}`
-      }`}
+        {calendarPeriod}
       </h2>
       <div className="react-fiscal-year-calendar-container">
         {FiscalCalendarData.map((month) => {
