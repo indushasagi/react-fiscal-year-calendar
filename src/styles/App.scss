@@ -9,33 +9,37 @@ h2 {
 .react-fiscal-year-calendar-container {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: column;
-  height: 650px;
-  .react-fiscal-year-calendar-month {
-    border: 1px solid black;
-    margin: 10px;
-    border-collapse: collapse;
-    thead {
-      background-color: rgba(0, 64, 255, 0.2);
-      .weekend {
-        color: #ff0000bd;
-      }
-    }
-    thead,
-    td {
-      border: 1px solid black;
+  justify-content: center;
+  .react-fiscal-year-calendar-quarter {
+    h3{
       text-align: center;
-      padding: 4px;
-      &.grey {
-        background-color: #d3d3d37a;
-        color: #ff0000bd;
-      }
     }
-    tbody {
+    .react-fiscal-year-calendar-month {
+      border: 1px solid black;
+      margin: 10px;
+      border-collapse: collapse;
+      thead {
+        background-color: rgba(0, 64, 255, 0.2);
+        .weekend {
+          color: #ff0000bd;
+        }
+      }
+      thead,
       td {
-        &:hover {
-          cursor: pointer;
-          background-color: #d3d3d3c7;
+        border: 1px solid black;
+        text-align: center;
+        padding: 4px;
+        &.grey {
+          background-color: #d3d3d37a;
+          color: #ff0000bd;
+        }
+      }
+      tbody {
+        td {
+          &:hover {
+            cursor: pointer;
+            background-color: #d3d3d3c7;
+          }
         }
       }
     }

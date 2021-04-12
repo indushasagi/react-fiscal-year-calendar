@@ -5,13 +5,13 @@
 
 # react-fiscal-year-calendar
 
-fiscal year calendar component in React JS
+Fiscal year calendar component in React JS
 
-### Demo
+## Demo
 
 [Demo](https://react-fiscal-year-calendar.vercel.app/)
 
-### Installation
+## Installation
 
 **npm**
 
@@ -25,16 +25,63 @@ npm install react-fiscal-year-calendar --save
 yarn add react-fiscal-year-calendar
 ```
 
-### Props
+## Props
 
-react-fiscal-year-calendar component accepts a mandatory prop - year, quarterMonth (Q1 Starting month)
+react-fiscal-year-calendar component accepts props as mentioned below.
 
-### Example
+### Type 1
+Both year and quarter month should be passed as mandator props. 
+- `year` - Number - Fiscal Year
+- `quarterMonth` - String - Fiscal Year Start Month
+
+or
+### Type 2
+If the fiscal month start and end dates differ.
+- `quarterDays` - Array of Objects - Mentioning the start and end dates of each quarter ( considering 3 months)
+
+## Examples:
+
+### Example 1
 
 ```js
 import FiscalCalendar from "react-fiscal-year-calendar";
 
 export default function SimpleCalendar() {
   return <FiscalCalendar year={2021} quarterMonth={"APRIL"} />;
+}
+```
+
+### Example 2
+
+```js
+import FiscalCalendar from "react-fiscal-year-calendar";
+
+export default function SimpleCalendar() {
+  return (
+    <FiscalCalendar
+      quarterDays={[
+        {
+          Q_ID: "1",
+          ST_DT: "2018-09-23",
+          ED_DT: "2018-12-23",
+        },
+        {
+          Q_ID: "2",
+          ST_DT: "2018-12-24",
+          ED_DT: "2019-03-24",
+        },
+        {
+          Q_ID: "3",
+          ST_DT: "2019-03-25",
+          ED_DT: "2019-06-25",
+        },
+        {
+          Q_ID: "4",
+          ST_DT: "2019-06-26",
+          ED_DT: "2019-09-22",
+        },
+      ]}
+    />
+  );
 }
 ```
