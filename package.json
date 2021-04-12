@@ -1,6 +1,6 @@
 {
   "name": "react-fiscal-year-calendar",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "private": false,
   "main": "./build/index.js",
   "dependencies": {
