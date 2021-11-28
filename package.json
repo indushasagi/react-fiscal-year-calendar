@@ -1,6 +1,6 @@
 {
   "name": "react-fiscal-year-calendar",
-  "version": "0.1.10",
+  "version": "0.1.12",
   "private": false,
   "main": "./build/index.js",
   "dependencies": {
@@ -29,21 +29,20 @@
     "build"
   ],
   "npmName": "react-fiscal-year-calendar",
-    "npmFileMap": [
-      {
-        "basePath": "/build/",
-        "files": [
-          "*.js"
-        ]
-      }
-    ],
-
+  "npmFileMap": [
+    {
+      "basePath": "/build/",
+      "files": [
+        "*.js"
+      ]
+    }
+  ],
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "pack":"webpack"
+    "pack": "webpack"
   },
   "eslintConfig": {
     "extends": [
